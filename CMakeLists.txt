@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.20)
+project(TGE)
+
+# Use clang warnings if building with clang/gcc
+if (CMAKE_C_COMPILER_ID MATCHES "Clang|GNU")
+    add_compile_options(-Wall -Wextra -pedantic)
+elseif (MSVC)
+    add_compile_options(/W4)
+endif()
+
+# Add SDL3 submodule directory
+add_subdirectory(vendor/SDL3)
+
+# Project source
+add_executable(TGE src/main.cpp)
+target_include_directories(TGE PRIVATE include)
+
+# Link SDL3
+target_link_libraries(TGE PRIVATE SDL3::SDL3)
