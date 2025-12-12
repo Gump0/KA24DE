@@ -8,12 +8,13 @@ elseif (MSVC)
     add_compile_options(/W4)
 endif()
 
-# Add SDL3 submodule directory
+# Add SDL3 submodule directories
 add_subdirectory(vendor/SDL3)
+add_subdirectory(vendor/SDL_image)
 
 # Project source
 add_executable(TGE src/main.cpp)
 target_include_directories(TGE PRIVATE include)
 
 # Link SDL3
-target_link_libraries(TGE PRIVATE SDL3::SDL3)
+target_link_libraries(TGE PRIVATE SDL3::SDL3 SDL3_image::SDL3_image)
