@@ -11,8 +11,17 @@ KA24DE::~KA24DE()
 {
     // cleanup objects
     // e.g delete cameraManager
+    if(mRenderer) {
+        SDL_DestroyRenderer(mRenderer);
+        mRenderer = nullptr;
+    }
 
-    shutDown();
+    if(mWindow) {
+        SDL_DestroyWindow(mWindow);
+        mWindow = nullptr;
+    }
+
+    SDL_Quit();
 }
 
 bool KA24DE::init()
@@ -25,8 +34,8 @@ bool KA24DE::init()
     }
 
     if(!SDL_CreateWindowAndRenderer( "TGE : WIP name and code lol",
-        gScreenWidth, gScreenHeight, SDL_WINDOW_MAXIMIZED,
-        &gWindow, &gRenderer ))
+        mScreenWidth, mScreenHeight, SDL_WINDOW_MAXIMIZED,
+        &mWindow, &mRenderer ))
     {
         SDL_Log( "Window could not be created! SDL error: %s\n", SDL_GetError() );
         success = false;
@@ -64,20 +73,8 @@ void KA24DE::update()
             }
         }
 
-        SDL_SetRenderDrawColor(gRenderer, 230, 115, 0, 255);
-        SDL_RenderClear(gRenderer);
-        SDL_RenderPresent(gRenderer);
+        SDL_SetRenderDrawColor(mRenderer, 230, 115, 0, 255);
+        SDL_RenderClear(mRenderer);
+        SDL_RenderPresent(mRenderer);
     }
-}
-
-void KA24DE::shutDown()
-{
-    // cleanup program.
-    SDL_DestroyWindow(gWindow);
-    gWindow = nullptr;
-
-    SDL_DestroyRenderer(gRenderer);
-    gRenderer = nullptr;
-
-    SDL_Quit();
 }

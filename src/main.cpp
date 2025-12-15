@@ -28,6 +28,5 @@ int main(int argc, char* args[])
         engine.update();
     }
 
-    engine.shutDown();
     return exitCode;
 }

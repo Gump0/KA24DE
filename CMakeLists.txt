@@ -13,8 +13,9 @@ add_subdirectory(vendor/SDL3)
 add_subdirectory(vendor/SDL_image)
 
 # Project source
-add_executable(KA24DE src/main.cpp)
-target_include_directories(KA24DE PRIVATE include)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+add_executable(KA24DE ${SOURCES})
+target_include_directories(KA24DE PRIVATE src)
 
 # Link SDL3
 target_link_libraries(KA24DE PRIVATE SDL3::SDL3 SDL3_image::SDL3_image)
