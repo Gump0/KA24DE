@@ -1,5 +1,4 @@
 todo list:
-handle user-input
 audio
 physics
 proper game-loop (with deltatime)
@@ -9,3 +8,4 @@ proper rendering system (engine handles entitys created and renders all applicab
 
 done:
 open window and render image on screen
+handle user-input
