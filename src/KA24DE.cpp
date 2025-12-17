@@ -2,6 +2,7 @@
 // class file that will manage the construction of global variables, system classes and destruction.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.h"
+#include "input-manager/input.h"
 
 KA24DE::KA24DE()
 {
@@ -9,7 +10,7 @@ KA24DE::KA24DE()
 
 KA24DE::~KA24DE()
 {
-    // cleanup objects
+    // cleanup object references to game engine systems
     // e.g delete cameraManager
     if(mRenderer) {
         SDL_DestroyRenderer(mRenderer);
@@ -40,6 +41,9 @@ bool KA24DE::init()
         SDL_Log( "Window could not be created! SDL error: %s\n", SDL_GetError() );
         success = false;
     }
+
+    // init game engine systems
+
     return success;
 }
 
@@ -65,16 +69,30 @@ void KA24DE::update()
 
     while(quit == false)
     {
+        Input::Update();
         while(SDL_PollEvent(&e) == true)
         {
             if(e.type == SDL_EVENT_QUIT)
             {
                 quit = true;
             }
+            Input::ProcessEvent(e);
         }
-
+        // update loop
+        // rendering
         SDL_SetRenderDrawColor(mRenderer, 230, 115, 0, 255);
         SDL_RenderClear(mRenderer);
         SDL_RenderPresent(mRenderer);
+
+        // test area :P
+        if(Input::GetMouseButtonDown(MouseCode::LEFTMOUSE))
+        {
+            SDL_Log("Kinna ghetto");
+        }
+
+        if(Input::GetKeyDown(KeyCode::W))
+        {
+            SDL_Log("Kinna ghetto");
+        }
     }
 }
