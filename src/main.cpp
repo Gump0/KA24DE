@@ -7,8 +7,6 @@ static KA24DE engine;
 
 int main(int argc, char* args[])
 {
-    // TODO : FIX COMPILE ERRORS CUASED FROM MY ABSTRACTION ATTEMPT LOL
-
     int exitCode {0};
     if(!engine.init())
     {
