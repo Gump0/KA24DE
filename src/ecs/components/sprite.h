@@ -6,7 +6,7 @@
 class Sprite : public Component
 {
 public:
-    std::string imgReference = "";
-    void Render();
+    std::string imageReference = "";
+    void ComponentDebug(int objectId) override;
 };
 #endif

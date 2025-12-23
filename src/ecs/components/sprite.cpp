@@ -3,7 +3,8 @@
 ///////////////////////////////////////////////////////////////////
 #include "sprite.h"
 
-void Sprite::Render()
+void Sprite::ComponentDebug(int objectId)
 {
-
+    std::string id = std::to_string(objectId);
+    std::cout << id << " has a Sprite component!! :DD";
 }

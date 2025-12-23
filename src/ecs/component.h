@@ -1,13 +1,16 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include <memory>
-#include <string>
+//#include <memory>
+//#include <string>
+#include <iostream>
 //---------------------------------------------------------------------------------
 class Component
 {
 public:
     virtual void Update();
+    virtual void ComponentDebug(int objectId);      // temporary method that debugs component name
+
     Component();
     ~Component();
 };

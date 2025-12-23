@@ -24,5 +24,7 @@ public:
         float x;
         float y;
     };
+
+    void ComponentDebug(int objectId) override;
 };
 #endif
