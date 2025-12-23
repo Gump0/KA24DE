@@ -13,10 +13,10 @@ void Entity::Update()
     }
 }
 
-Entity::Entity(std::string name)
+Entity::Entity(int id, std::string name)
 {
-    // generate id
-    mId = rand() % 32767;
+    // assign id (entity system  will keep track of entity ids)
+    mId = id;
     if(name.empty())
     {
         std::string newName = std::to_string(mId);

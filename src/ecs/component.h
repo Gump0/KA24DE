@@ -7,7 +7,7 @@
 class Component
 {
 public:
-    static void Update();
+    virtual void Update();
 private:
     Component();
     ~Component();
