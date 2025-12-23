@@ -1,9 +1,28 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
-//---------------------------------------------------------------------------------
-// 2 dimensional scaling
-struct Position;
-struct Rotation;
-struct Scale;
 
+#include "../component.h"
+//---------------------------------------------------------------------------------
+class Transform : public Component
+{
+public:
+    // 2 dimensional transform data
+    struct Position
+    {
+        float x;
+        float y;
+    };
+
+    struct Rotation
+    {
+        float x;
+        float y;
+    };
+
+    struct Scale
+    {
+        float x;
+        float y;
+    };
+};
 #endif

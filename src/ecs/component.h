@@ -8,7 +8,6 @@ class Component
 {
 public:
     virtual void Update();
-private:
     Component();
     ~Component();
 };

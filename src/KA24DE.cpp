@@ -4,9 +4,7 @@
 #include "KA24DE.h"
 #include "input-manager/input.h"
 
-KA24DE::KA24DE()
-{
-}
+KA24DE::KA24DE() { }
 
 KA24DE::~KA24DE()
 {
@@ -34,7 +32,7 @@ bool KA24DE::init()
         success = false;
     }
 
-    if(!SDL_CreateWindowAndRenderer( "TGE : WIP name and code lol",
+    if(!SDL_CreateWindowAndRenderer( "KA24DE :: NO GAME NAME",
         mScreenWidth, mScreenHeight, SDL_WINDOW_MAXIMIZED,
         &mWindow, &mRenderer ))
     {
