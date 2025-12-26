@@ -3,15 +3,7 @@
 // think of "GameObjects" from Unity or a similar entity system you would see in a trillion other game engines
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "entity.h"
-
-void Entity::Update()
-{
-    // update each component
-    for(auto& component : mComponents)
-    {
-        component->Update();
-    }
-}
+#include <SDL3/SDL_filesystem.h>
 
 Entity::Entity(int id, std::string name)
 {
@@ -30,3 +22,5 @@ Entity::Entity(int id, std::string name)
 }
 
 Entity::~Entity() {}
+
+Entity::Entity(const Entity& obj) {}

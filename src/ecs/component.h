@@ -13,6 +13,7 @@ public:
 
     Component();
     ~Component();
+    Component(const Component &obj);
 };
 
 #endif
