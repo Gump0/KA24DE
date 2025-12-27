@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////
 // handles input management (keyboard, mouse and controller)
 /////////////////////////////////////////////////////////////
-#include "input.h"
+#include "input.hpp"
 
 // init static members
 std::unordered_map<KeyCode, bool> Input::mCurrentKeyState;

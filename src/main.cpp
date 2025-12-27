@@ -1,7 +1,7 @@
 /////////////////////////////////////
 // the "entry point" to the program.
 /////////////////////////////////////
-#include "KA24DE.h"
+#include "KA24DE.hpp"
 
 static KA24DE engine;
 

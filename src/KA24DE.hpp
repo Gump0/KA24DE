@@ -1,10 +1,5 @@
 #ifndef KA24DE_H
 #define KA24DE_H
-// base c++ standard stuff
-#include "input-manager/input.h"
-#include <atomic>
-#include <iostream>
-#include <string>
 
 //---------------------------------------------------------------------------------
 // sdl

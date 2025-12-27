@@ -1,15 +1,11 @@
 #ifndef PHYSICS_BODY_H
 #define PHYSICS_BODY_H
 
-#include "../component.h"
 //---------------------------------------------------------------------------------
-class PhsyicsBody
+struct Velocity
 {
-public:
-    struct Velocity
-    {
-        float x;
-        float y;
-    };
+    float x;
+    float y;
 };
+
 #endif

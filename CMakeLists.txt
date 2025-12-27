@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
+set(CMAKE_CXX_STANDARD 17) # enforce the use of c++ 17
 project(KA24DE)
 
 # Use clang warnings if building with clang/gcc

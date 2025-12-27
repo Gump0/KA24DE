@@ -1,9 +1,6 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-//#include <memory>
-//#include <string>
-#include <iostream>
 //---------------------------------------------------------------------------------
 class Component
 {

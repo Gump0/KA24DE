@@ -2,7 +2,9 @@
 // base-class for components, this detirmines each components individual behaviors and required data
 // when being "hooked-up" to entity objects
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "component.h"
+#include "component.hpp"
+#include <string>
+#include <iostream>
 
 void Component::Update() { }
 
