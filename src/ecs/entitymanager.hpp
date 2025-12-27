@@ -24,7 +24,7 @@ public:
     }
 
     ~EntityManger() = default;
-    EntityManger(const EntityManger& obj) = default;
+    EntityManger(const EntityManger &obj) = default;
 
     Entity CreateEntity()
     {

@@ -11,7 +11,7 @@
 
 #include "entitytype.hpp"
 #include <array>
-#include <cstddef>
+#include <cassert>
 #include <unordered_map>
 //---------------------------------------------------------------------------------
 class IComponentContainer
@@ -25,6 +25,52 @@ template<typename T>
 class ComponentContainer : public IComponentContainer
 {
 public:
+    void AddComponent(Entity entity, T component)
+    {
+        assert(mEntityToIndex.find(entity) == mEntityToIndex.end() && "ERROR : component added to same entity more than once.");
+
+        // add new entry at the end fo the container
+        size_t newIndex = mSize;
+        mEntityToIndex[entity] = newIndex;
+        mIndexToEntity[newIndex] = entity;
+        mComponentArray[newIndex] = component;
+        mSize++;
+    }
+
+    void RemoveComponent(Entity entity, T component)
+    {
+        assert(mEntityToIndex.find(entity) != mEntityToIndex.end() && "ERROR : removing non-existent component");
+
+        // copy element at end to deleted elements place to maintain density
+        size_t removedEntityIndex = mEntityToIndex[entity];
+        size_t endIndex = mSize - 1;
+        mComponentArray[removedEntityIndex] = mComponentArray[endIndex];
+
+        // update hashmap to point to moved spot
+        Entity entityOfLastElement = mIndexToEntity[removedEntityIndex];
+        mEntityToIndex[entityOfLastElement] = mIndexToEntity[endIndex];
+        mIndexToEntity[endIndex] = entityOfLastElement;
+
+        mEntityToIndex.erase(entity);
+        mIndexToEntity.erase(endIndex);
+        mSize--;
+    }
+
+    T& GetComponent(Entity entity)
+    {
+        assert(mEntityToIndex.find(entity) != mEntityToIndex.end() && "ERROR : retrieving non-existent component");
+
+        size_t entityIndex = mEntityToIndex[entity];
+        return mComponentArray[entityIndex];
+    }
+
+    void EntityDeleted(Entity entity) override
+    {
+        if(mEntityToIndex.find(entity) != mEntityToIndex.end())
+        {
+            RemoveComponent(entity);
+        }
+    }
 
 private:
     // The packed array of components of generic type T
