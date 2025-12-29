@@ -7,7 +7,6 @@
 
 #include "system.hpp"
 #include "entitytype.hpp"
-#include <algorithm>
 #include <unordered_map>
 #include <memory>
 #include <cassert>
