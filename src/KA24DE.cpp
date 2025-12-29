@@ -67,6 +67,8 @@ void KA24DE::update()
     SDL_Event e;
     SDL_zero(e);
 
+    auto lastTime = engineClock::now();
+
     while(quit == false)
     {
         Input::Update();
@@ -84,6 +86,12 @@ void KA24DE::update()
         SDL_RenderClear(mRenderer);
         SDL_RenderPresent(mRenderer);
 
+        // time calculations
+        auto nowTime = engineClock::now();
+        std::chrono::duration<double> delta = nowTime - lastTime;
+        lastTime = nowTime;
+        deltaTime = delta.count();
+
         // test area :P
         if(Input::GetMouseButtonDown(MouseCode::LEFTMOUSE))
         {
@@ -92,7 +100,7 @@ void KA24DE::update()
 
         if(Input::GetKeyDown(KeyCode::W))
         {
-            SDL_Log("Kinna ghetto");
+            SDL_Log("%f", deltaTime);
         }
     }
 }
