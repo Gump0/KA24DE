@@ -23,14 +23,15 @@
 #include "ecs/dictator.hpp"
 
 //---------------------------------------------------------------------------------
+
+// ecs dictator
+extern Dictator gDictator;
+
 class KA24DE
 {
 public:
     KA24DE();           // class constructor
     ~KA24DE();          // destructor that handles memory cleanup of program
-
-    // ecs dictator
-    Dictator gDictator;
 
     // time
     double deltaTime;

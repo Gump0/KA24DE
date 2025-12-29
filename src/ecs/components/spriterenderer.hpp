@@ -1,9 +1,9 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#ifndef SPRITE_RENDERER_H
+#define SPRITE_RENDERER_H
 
 #include <string>
 //---------------------------------------------------------------------------------
-struct Sprite
+struct SpriteRenderer
 {
     std::string mImgLocation = "";
 };

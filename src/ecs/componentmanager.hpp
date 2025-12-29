@@ -55,7 +55,7 @@ public:
 	template<typename T>
 	T& GetComponent(Entity entity)
 	{
-		return GetComponentContainer<T>()->GetData(entity);
+		return GetComponentContainer<T>()->GetComponent(entity);
 	}
 
 	void EntityDeleted(Entity entity)

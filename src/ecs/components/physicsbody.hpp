@@ -2,10 +2,12 @@
 #define PHYSICS_BODY_H
 
 //---------------------------------------------------------------------------------
-struct Velocity
+struct PhysicsBody
 {
-    float x;
-    float y;
+    float xVelocity;
+    float yVelocity;
+
+    bool isGrounded;
 };
 
 #endif
