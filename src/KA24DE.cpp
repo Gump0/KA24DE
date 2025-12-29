@@ -2,9 +2,11 @@
 // class file that will manage the construction of global variables, system classes and destruction.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
-#include "input-manager/input.hpp"
 
-KA24DE::KA24DE() { }
+KA24DE::KA24DE()
+{
+    gDictator.Init();
+}
 
 KA24DE::~KA24DE()
 {

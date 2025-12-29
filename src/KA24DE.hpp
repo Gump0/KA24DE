@@ -13,6 +13,12 @@
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_filesystem.h>
 
+// input manager
+#include "input-manager/input.hpp"
+
+// ecs
+#include "ecs/dictator.hpp"
+
 //---------------------------------------------------------------------------------
 class KA24DE
 {
@@ -20,9 +26,13 @@ public:
     KA24DE();           // class constructor
     ~KA24DE();          // destructor that handles memory cleanup of program
 
+    // ecs dictator
+    Dictator gDictator;
+
     // time
     float deltaTime;
     float frameRate;
+    const float MAX_FRAMERATE = 60.0f;
 
     bool init();        // called on program start
     void start();       // "start code" for user to initialize gameplay code after engine inits
