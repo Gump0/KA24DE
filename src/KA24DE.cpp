@@ -2,12 +2,43 @@
 // class file that will manage the construction of global variables, system classes and destruction.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
+#include "ecs/components/spriterenderer.hpp"
+#include "ecs/components/transform.hpp"
+#include "ecs/systems/spriterenderingsystem.hpp"
+#include <memory> // redundant after fix
 
 Dictator gDictator;
+
+// TEMPERARY (WILL HAVE A MORE OFFICIAL WAY OF DOING THIS L8R)
+std::shared_ptr<SpriteRenderingSystem> spriteRenderingSystem;
 
 KA24DE::KA24DE()
 {
     gDictator.Init();
+    // register component types we will use for our "game"
+    gDictator.RegisterComponent<Transform>();
+    // gDictator.RegisterComponent<SpriteRenderer>();
+    // // register system under system manager
+    // spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
+
+    // Signature sig;
+    // // set signature for default component types
+    // sig.set(gDictator.GetComponentType<Transform>());
+    // sig.set(gDictator.GetComponentType<SpriteRenderer>());
+    // // set signature for system types
+    // gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
+
+    // // sprite renderer test
+    // auto entity = gDictator.CreateEntity();
+    // gDictator.AddComponent(entity,
+    //     SpriteRenderer {
+    //         nullptr,
+    //         "cat0.bmp",
+    //         50,
+    //         50,
+    //         false,
+    //     }
+    // );
 }
 
 KA24DE::~KA24DE()
@@ -43,8 +74,8 @@ bool KA24DE::init()
         SDL_Log( "Window could not be created! SDL error: %s\n", SDL_GetError() );
         success = false;
     }
-
-    // init game engine systems
+    // call start after initialization
+    start();
 
     return success;
 }
@@ -83,6 +114,7 @@ void KA24DE::update()
             Input::ProcessEvent(e);
         }
         // update loop
+        spriteRenderingSystem->Render(mRenderer);
         // rendering
         SDL_SetRenderDrawColor(mRenderer, 230, 115, 0, 255);
         SDL_RenderClear(mRenderer);

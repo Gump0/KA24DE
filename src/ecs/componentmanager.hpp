@@ -49,7 +49,7 @@ public:
 	template<typename T>
 	void RemoveComponent(Entity entity)
 	{
-		GetComponentContainer<T>()->RemoveData(entity);
+		GetComponentContainer<T>()->RemoveComponent(entity);
 	}
 
 	template<typename T>

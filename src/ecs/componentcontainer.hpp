@@ -17,7 +17,7 @@
 class IComponentContainer
 {
 public:
-    ~IComponentContainer();
+    ~IComponentContainer() = default;
     virtual void EntityDeleted(Entity entity) = 0;
 };
 
@@ -37,7 +37,7 @@ public:
         mSize++;
     }
 
-    void RemoveComponent(Entity entity, T component)
+    void RemoveComponent(Entity entity)
     {
         assert(mEntityToIndex.find(entity) != mEntityToIndex.end() && "ERROR : removing non-existent component");
 
