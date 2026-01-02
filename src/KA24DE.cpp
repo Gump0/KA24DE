@@ -17,28 +17,38 @@ KA24DE::KA24DE()
     gDictator.Init();
     // register component types we will use for our "game"
     gDictator.RegisterComponent<Transform>();
-    // gDictator.RegisterComponent<SpriteRenderer>();
-    // // register system under system manager
-    // spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
+    gDictator.RegisterComponent<SpriteRenderer>();
+    // register system under system manager
+    spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
 
-    // Signature sig;
+    Signature sig;
     // // set signature for default component types
-    // sig.set(gDictator.GetComponentType<Transform>());
-    // sig.set(gDictator.GetComponentType<SpriteRenderer>());
+    sig.set(gDictator.GetComponentType<Transform>());
+    sig.set(gDictator.GetComponentType<SpriteRenderer>());
     // // set signature for system types
-    // gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
+    gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
 
-    // // sprite renderer test
-    // auto entity = gDictator.CreateEntity();
-    // gDictator.AddComponent(entity,
-    //     SpriteRenderer {
-    //         nullptr,
-    //         "cat0.bmp",
-    //         50,
-    //         50,
-    //         false,
-    //     }
-    // );
+    // sprite renderer test
+    auto entity = gDictator.CreateEntity();
+    gDictator.AddComponent(entity, // <-- this line is causing problems
+        SpriteRenderer {
+            nullptr,
+            "cat0.bmp",
+            50,
+            50,
+            false,
+        }
+    );
+    gDictator.AddComponent(entity,
+        Transform {
+            5.0f,
+            5.0f,
+            0.0f,
+            0.0f,
+            1.0f,
+            1.0f,
+        }
+    );
 }
 
 KA24DE::~KA24DE()
@@ -114,11 +124,12 @@ void KA24DE::update()
             Input::ProcessEvent(e);
         }
         // update loop
-        spriteRenderingSystem->Render(mRenderer);
+
         // rendering
-        SDL_SetRenderDrawColor(mRenderer, 230, 115, 0, 255);
-        SDL_RenderClear(mRenderer);
-        SDL_RenderPresent(mRenderer);
+        SDL_SetRenderDrawColor(mRenderer, 230, 115, 0, 255);    // background
+        SDL_RenderClear(mRenderer);                             // clear screen
+        spriteRenderingSystem->Render(mRenderer);               // render ghetto test implemntation
+        SDL_RenderPresent(mRenderer);                           // place data from mRenderer on-screen
 
         // time calculations
         auto nowTime = engineClock::now();

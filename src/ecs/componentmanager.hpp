@@ -43,7 +43,7 @@ public:
 	template<typename T>
 	void AddComponent(Entity entity, T component)
 	{
-		GetComponentContainer<T>()->InsertData(entity, component);
+		GetComponentContainer<T>()->AddComponent(entity, component);
 	}
 
 	template<typename T>

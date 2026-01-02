@@ -9,6 +9,10 @@ void SpriteRenderingSystem::Init() { }
 
 void SpriteRenderingSystem::Render(SDL_Renderer* renderer)
 {
+    if(mEntities.empty())
+        SDL_Log("ITS EMPTY");
+    else
+        SDL_Log("yuppers :3");
     for(auto const& entity : mEntities)
     {
         // grab references
@@ -22,6 +26,7 @@ void SpriteRenderingSystem::Render(SDL_Renderer* renderer)
         if(!sr.spriteTexture)
         {
             SDL_Log("ERROR : Texture was not initialized in sprite renderer component %s:", SDL_GetError());
+            continue;
         }
 
         SDL_FRect dst
