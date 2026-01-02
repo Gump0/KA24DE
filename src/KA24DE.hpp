@@ -1,10 +1,5 @@
 #ifndef KA24DE_H
 #define KA24DE_H
-// base c++ standard stuff
-#include "input-manager/input.h"
-#include <atomic>
-#include <iostream>
-#include <string>
 
 //---------------------------------------------------------------------------------
 // sdl
@@ -13,12 +8,26 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_oldnames.h>
+#include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_stdinc.h>
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_filesystem.h>
 
+// time library
+#include <chrono>
+
+// input manager
+#include "input-manager/input.hpp"
+
+// ecs
+#include "ecs/dictator.hpp"
+
 //---------------------------------------------------------------------------------
+
+// ecs dictator
+extern Dictator gDictator;
+
 class KA24DE
 {
 public:
@@ -26,8 +35,7 @@ public:
     ~KA24DE();          // destructor that handles memory cleanup of program
 
     // time
-    float deltaTime;
-    float frameRate;
+    double deltaTime;
 
     bool init();        // called on program start
     void start();       // "start code" for user to initialize gameplay code after engine inits
@@ -43,6 +51,9 @@ SDL_Window* mWindow {nullptr};
 
 // renderer
 SDL_Renderer* mRenderer {nullptr};
+
+// engine time
+using engineClock = std::chrono::steady_clock;
 };
 
 #endif

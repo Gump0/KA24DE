@@ -1,11 +1,12 @@
 todo list:
 audio
-physics
-proper game-loop (with deltatime)
-entity-component system
+2d physics
 easy to use, abstracted user scripting layer
 proper rendering system (engine handles entitys created and renders all applicable ones)
+handle static images on-screen (UI elements)
 
 done:
 open window and render image on screen
 handle user-input
+proper game-loop (with deltatime)
+entity-component system
