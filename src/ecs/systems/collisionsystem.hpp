@@ -1,0 +1,30 @@
+///////////////////////////////////////////////////////
+// handles checking for collisions on entity objects.
+// requires (transform, collider2d)
+///////////////////////////////////////////////////////
+#ifndef COLLISION_SYSTEM_H
+#define COLLISION_SYSTEM_H
+
+#include "../system.hpp"
+#include "../components/collider2d.hpp"
+#include "../components/transform.hpp"
+#include <vector>
+//---------------------------------------------------------------------------------
+class CollisionSystem : public System
+{
+    struct CollisionPair
+    {
+        Entity& entity1;
+        Entity& entity2;
+        bool isTrigger;
+    };
+    std::vector<CollisionPair> mCurrentCollisions; // current collisions
+    std::vector<CollisionPair> mPrevoiusCollisions; // collisions from prevoius frame
+
+public:
+    void Update();
+    bool AreColliding(Entity one, Entity two);
+private:
+};
+
+#endif

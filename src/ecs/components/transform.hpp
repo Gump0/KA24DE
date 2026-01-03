@@ -4,13 +4,13 @@
 //---------------------------------------------------------------------------------
 struct Transform
 {
-    float mPosX;
-    float mPosY;
+    float PosX;
+    float PosY;
 
-    float mRotX;
-    float mRotY;
+    float RotX;
+    float RotY;
 
-    float mScaleX;
-    float mScaleY;
+    float ScaleX;
+    float ScaleY;
 };
 #endif

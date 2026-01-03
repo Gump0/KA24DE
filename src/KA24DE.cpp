@@ -2,15 +2,21 @@
 // class file that will manage the construction of global variables, system classes and destruction.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
+#include "ecs/components/collider2d.hpp"
 #include "ecs/components/spriterenderer.hpp"
 #include "ecs/components/transform.hpp"
+#include "ecs/systems/collisionsystem.hpp"
 #include "ecs/systems/spriterenderingsystem.hpp"
+#include "ecs/systems/playermove.hpp"
+// system stuff ^^
 #include <memory> // redundant after fix
 
 Dictator gDictator;
 
 // TEMPERARY (WILL HAVE A MORE OFFICIAL WAY OF DOING THIS L8R)
 std::shared_ptr<SpriteRenderingSystem> spriteRenderingSystem;
+std::shared_ptr<CollisionSystem> collisionSystem;
+std::shared_ptr<PlayerMove> playerMove;
 
 KA24DE::KA24DE()
 {
@@ -18,19 +24,26 @@ KA24DE::KA24DE()
     // register component types we will use for our "game"
     gDictator.RegisterComponent<Transform>();
     gDictator.RegisterComponent<SpriteRenderer>();
+    gDictator.RegisterComponent<Collider2D>();
     // register system under system manager
     spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
+    collisionSystem = gDictator.RegisterSystem<CollisionSystem>();
+    playerMove = gDictator.RegisterSystem<PlayerMove>();
+
 
     Signature sig;
-    // // set signature for default component types
+    // set signature for default component types
     sig.set(gDictator.GetComponentType<Transform>());
     sig.set(gDictator.GetComponentType<SpriteRenderer>());
-    // // set signature for system types
+    sig.set(gDictator.GetComponentType<Collider2D>());
+    // set signature for system types
     gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
+    gDictator.SetSystemSignature<CollisionSystem>(sig);
+    gDictator.SetSystemSignature<PlayerMove>(sig);
 
-    // sprite renderer test
-    auto entity = gDictator.CreateEntity();
-    gDictator.AddComponent(entity, // <-- this line is causing problems
+    // SPAWN ENTITY 1 TEST
+    auto entity1 = gDictator.CreateEntity();
+    gDictator.AddComponent(entity1, // <-- this line is causing problems
         SpriteRenderer {
             nullptr,
             "cat0.bmp",
@@ -39,16 +52,50 @@ KA24DE::KA24DE()
             false,
         }
     );
-    gDictator.AddComponent(entity,
+    gDictator.AddComponent(entity1,
         Transform {
-            5.0f,
-            5.0f,
+            640.0f,
+            350.0f,
             0.0f,
             0.0f,
             1.0f,
             1.0f,
         }
     );
+    gDictator.AddComponent(entity1,
+        Collider2D {
+            50,
+            50,
+        }
+    );
+
+    // SPAWN ENTITY TWO TEST
+    // auto entity2 = gDictator.CreateEntity();
+    // gDictator.AddComponent(entity2, // <-- this line is causing problems
+    //     SpriteRenderer {
+    //         nullptr,
+    //         "cat0.bmp",
+    //         50,
+    //         50,
+    //         false,
+    //     }
+    // );
+    // gDictator.AddComponent(entity2,
+    //     Transform {
+    //         625.0f,
+    //         350.0f,
+    //         0.0f,
+    //         0.0f,
+    //         1.0f,
+    //         1.0f,
+    //     }
+    // );
+    // gDictator.AddComponent(entity2,
+    //     Collider2D {
+    //         50,
+    //         50,
+    //     }
+    // );
 }
 
 KA24DE::~KA24DE()
@@ -137,13 +184,14 @@ void KA24DE::update()
         lastTime = nowTime;
         deltaTime = delta.count();
 
+        // collision
+        collisionSystem->Update();
+
+        // player move
+        playerMove->Update(deltaTime);
+
         // test area :P
         if(Input::GetMouseButtonDown(MouseCode::LEFTMOUSE))
-        {
-            SDL_Log("Kinna ghetto");
-        }
-
-        if(Input::GetKeyDown(KeyCode::W))
         {
             SDL_Log("%f", deltaTime);
         }

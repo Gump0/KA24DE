@@ -30,7 +30,7 @@ void Input::ProcessEvent(const SDL_Event& event)
             break;
         }
 
-        case SDL_EVENT_KEY_UP:  // ✅ Add this!
+        case SDL_EVENT_KEY_UP:
         {
             KeyCode key = SDLKeyToKeyCode(event.key.key);
             mCurrentKeyState[key] = false;

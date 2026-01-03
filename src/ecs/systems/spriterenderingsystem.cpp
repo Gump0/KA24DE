@@ -9,10 +9,6 @@ void SpriteRenderingSystem::Init() { }
 
 void SpriteRenderingSystem::Render(SDL_Renderer* renderer)
 {
-    if(mEntities.empty())
-        SDL_Log("ITS EMPTY");
-    else
-        SDL_Log("yuppers :3");
     for(auto const& entity : mEntities)
     {
         // grab references
@@ -32,10 +28,10 @@ void SpriteRenderingSystem::Render(SDL_Renderer* renderer)
         SDL_FRect dst
         {
             // TODO : Include rotation
-            transform.mPosX,
-            transform.mPosY,
-            sr.sizeX * transform.mScaleX,
-            sr.sizeY * transform.mScaleY,
+            transform.PosX,
+            transform.PosY,
+            sr.sizeX * transform.ScaleX,
+            sr.sizeY * transform.ScaleY,
         };
 
         SDL_RenderTexture(renderer, sr.spriteTexture, nullptr, &dst);
