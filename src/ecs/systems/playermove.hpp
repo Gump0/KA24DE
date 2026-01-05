@@ -12,7 +12,6 @@ class PlayerMove : public System
 public:
     void Update(double deltaTime);
 private:
-    const float MOVE_SPEED {500.0f};
     float mXVelocity {0}, mYVelocity {0};
 };
 

@@ -10,6 +10,7 @@
 #include <queue>
 #include <array>
 #include <cassert>
+#include <regex>
 //---------------------------------------------------------------------------------
 class EntityManger
 {
@@ -60,6 +61,11 @@ public:
         assert(entity < MAX_COMPONENTS && "ERROR : entity is out of range");
 
         return mSignatures[entity];
+    }
+
+    uint32_t ActiveEntities()
+    {
+        return mActiveEntities;
     }
 
 private:

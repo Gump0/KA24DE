@@ -11,6 +11,7 @@
 #include "entitymanager.hpp"
 #include "componentmanager.hpp"
 #include "entitytype.hpp"
+#include <cstdint>
 //---------------------------------------------------------------------------------
 class Dictator
 {
@@ -33,6 +34,11 @@ public:
         mEntityManager->DeleteEntity(entity);
         mComponentManager->EntityDeleted(entity);
         mSystemManager->EntityDestroyed(entity);
+    }
+
+    uint32_t ActiveEntities()
+    {
+        mEntityManager->ActiveEntities();
     }
 
     // component manager

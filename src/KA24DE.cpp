@@ -3,6 +3,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
 #include "ecs/components/collider2d.hpp"
+#include "ecs/components/playerbody.hpp"
 #include "ecs/components/spriterenderer.hpp"
 #include "ecs/components/transform.hpp"
 #include "ecs/systems/collisionsystem.hpp"
@@ -25,6 +26,7 @@ KA24DE::KA24DE()
     gDictator.RegisterComponent<Transform>();
     gDictator.RegisterComponent<SpriteRenderer>();
     gDictator.RegisterComponent<Collider2D>();
+    gDictator.RegisterComponent<Playerbody>();
     // register system under system manager
     spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
     collisionSystem = gDictator.RegisterSystem<CollisionSystem>();
@@ -36,6 +38,7 @@ KA24DE::KA24DE()
     sig.set(gDictator.GetComponentType<Transform>());
     sig.set(gDictator.GetComponentType<SpriteRenderer>());
     sig.set(gDictator.GetComponentType<Collider2D>());
+    sig.set(gDictator.GetComponentType<Playerbody>());
     // set signature for system types
     gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
     gDictator.SetSystemSignature<CollisionSystem>(sig);
@@ -68,35 +71,45 @@ KA24DE::KA24DE()
             50,
         }
     );
+    gDictator.AddComponent(entity1,
+        Playerbody {
+            500.0f,
+        }
+    );
 
     // SPAWN ENTITY TWO TEST
-    // auto entity2 = gDictator.CreateEntity();
-    // gDictator.AddComponent(entity2, // <-- this line is causing problems
-    //     SpriteRenderer {
-    //         nullptr,
-    //         "cat0.bmp",
-    //         50,
-    //         50,
-    //         false,
-    //     }
-    // );
-    // gDictator.AddComponent(entity2,
-    //     Transform {
-    //         625.0f,
-    //         350.0f,
-    //         0.0f,
-    //         0.0f,
-    //         1.0f,
-    //         1.0f,
-    //     }
-    // );
-    // gDictator.AddComponent(entity2,
-    //     Collider2D {
-    //         50,
-    //         50,
-    //     }
-    // );
-}
+//     auto entity2 = gDictator.CreateEntity();
+//     gDictator.AddComponent(entity2,
+//         SpriteRenderer {
+//             nullptr,
+//             "cat0.bmp",
+//             50,
+//             50,
+//             false,
+//         }
+//     );
+//     gDictator.AddComponent(entity2,
+//         Transform {
+//             640.0f,
+//             350.0f,
+//             0.0f,
+//             0.0f,
+//             1.0f,
+//             1.0f,
+//         }
+//     );
+//     gDictator.AddComponent(entity2,
+//         Collider2D {
+//             50,
+//             50,
+//         }
+//     );
+//     gDictator.AddComponent(entity2,
+//         Playerbody {
+//             500.0f,
+//         }
+//     );
+// }
 
 KA24DE::~KA24DE()
 {
