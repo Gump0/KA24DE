@@ -1,6 +1,7 @@
 #include "spriterenderingsystem.hpp"
 #include "../components/transform.hpp"
 #include "../../KA24DE.hpp"
+#include <SDL3/SDL_log.h>
 
 void SpriteRenderingSystem::Init() { }
 // TODO :

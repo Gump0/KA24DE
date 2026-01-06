@@ -38,7 +38,7 @@ public:
 
     uint32_t ActiveEntities()
     {
-        mEntityManager->ActiveEntities();
+        return mEntityManager->ActiveEntities();
     }
 
     // component manager

@@ -10,7 +10,6 @@
 #include <queue>
 #include <array>
 #include <cassert>
-#include <regex>
 //---------------------------------------------------------------------------------
 class EntityManger
 {

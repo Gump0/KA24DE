@@ -3,6 +3,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
 #include "ecs/components/collider2d.hpp"
+#include "ecs/components/physicsbody.hpp"
 #include "ecs/components/playerbody.hpp"
 #include "ecs/components/spriterenderer.hpp"
 #include "ecs/components/transform.hpp"
@@ -27,26 +28,43 @@ KA24DE::KA24DE()
     gDictator.RegisterComponent<SpriteRenderer>();
     gDictator.RegisterComponent<Collider2D>();
     gDictator.RegisterComponent<Playerbody>();
+    gDictator.RegisterComponent<PhysicsBody>();
+
     // register system under system manager
+    // sprite rendering system
     spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
+    {
+        Signature sig;
+        sig.set(gDictator.GetComponentType<Transform>());
+        sig.set(gDictator.GetComponentType<SpriteRenderer>());
+        gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
+    }
+    spriteRenderingSystem->Init();
+
+    // collision system
     collisionSystem = gDictator.RegisterSystem<CollisionSystem>();
+    {
+        Signature sig;
+        sig.set(gDictator.GetComponentType<Transform>());
+        sig.set(gDictator.GetComponentType<Collider2D>());
+        gDictator.SetSystemSignature<CollisionSystem>(sig);
+    }
+
+    // physics system
+    // tbd..
+
+    // player move system
     playerMove = gDictator.RegisterSystem<PlayerMove>();
-
-
-    Signature sig;
-    // set signature for default component types
-    sig.set(gDictator.GetComponentType<Transform>());
-    sig.set(gDictator.GetComponentType<SpriteRenderer>());
-    sig.set(gDictator.GetComponentType<Collider2D>());
-    sig.set(gDictator.GetComponentType<Playerbody>());
-    // set signature for system types
-    gDictator.SetSystemSignature<SpriteRenderingSystem>(sig);
-    gDictator.SetSystemSignature<CollisionSystem>(sig);
-    gDictator.SetSystemSignature<PlayerMove>(sig);
+    {
+        Signature sig;
+        sig.set(gDictator.GetComponentType<Transform>());
+        sig.set(gDictator.GetComponentType<Playerbody>());
+        gDictator.SetSystemSignature<PlayerMove>(sig);
+    }
 
     // SPAWN ENTITY 1 TEST
     auto entity1 = gDictator.CreateEntity();
-    gDictator.AddComponent(entity1, // <-- this line is causing problems
+    gDictator.AddComponent(entity1,
         SpriteRenderer {
             nullptr,
             "cat0.bmp",
@@ -78,38 +96,25 @@ KA24DE::KA24DE()
     );
 
     // SPAWN ENTITY TWO TEST
-//     auto entity2 = gDictator.CreateEntity();
-//     gDictator.AddComponent(entity2,
-//         SpriteRenderer {
-//             nullptr,
-//             "cat0.bmp",
-//             50,
-//             50,
-//             false,
-//         }
-//     );
-//     gDictator.AddComponent(entity2,
-//         Transform {
-//             640.0f,
-//             350.0f,
-//             0.0f,
-//             0.0f,
-//             1.0f,
-//             1.0f,
-//         }
-//     );
-//     gDictator.AddComponent(entity2,
-//         Collider2D {
-//             50,
-//             50,
-//         }
-//     );
-//     gDictator.AddComponent(entity2,
-//         Playerbody {
-//             500.0f,
-//         }
-//     );
-// }
+    auto entity2 = gDictator.CreateEntity();
+    gDictator.AddComponent(entity2,
+        Transform {
+            530.0f,
+            350.0f,
+            0.0f,
+            0.0f,
+            1.0f,
+            1.0f,
+        });
+    gDictator.AddComponent(entity2,
+        SpriteRenderer {
+            nullptr,
+            "cat0.bmp",
+            50,
+            50,
+            false,
+        });
+}
 
 KA24DE::~KA24DE()
 {
