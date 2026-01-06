@@ -114,6 +114,36 @@ KA24DE::KA24DE()
             50,
             false,
         });
+        gDictator.AddComponent(entity2,
+        Collider2D {
+            50,
+            50
+        });
+
+    // SPAWN ENTITY THREE TEST
+    auto entity3 = gDictator.CreateEntity();
+    gDictator.AddComponent(entity3,  // <= for some reason this bricks the game </
+        Transform {
+            630.0f,
+            460.0f,
+            0.0f,
+            0.0f,
+            1.0f,
+            1.0f,
+        });
+    gDictator.AddComponent(entity3,
+        SpriteRenderer {
+            nullptr,
+            "cat1.bmp",
+            50,
+            50,
+            false,
+        });
+        gDictator.AddComponent(entity3,
+        Collider2D {
+            50,
+            50
+        });
 }
 
 KA24DE::~KA24DE()

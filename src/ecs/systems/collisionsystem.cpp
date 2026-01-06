@@ -3,7 +3,7 @@
 
 void CollisionSystem::Update()
 {
-    if(mEntities.size() <= 1)
+    if(mEntities.size() < 2)
         return;
     // Not ideal implementation since this collision system does use a O(N^2) solution.
     // Likely should change this at some point. For now it's here to show off system emplementation
@@ -49,8 +49,3 @@ void CollisionSystem::Update()
         }
     }
 }
-
-// bool CollisionSystem::AreColliding(Entity one, Entity two)
-// {
-
-// }
