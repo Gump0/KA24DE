@@ -1,8 +1,11 @@
 #include "collisionsystem.hpp"
 #include "../../KA24DE.hpp"
+#include <SDL3/SDL_log.h>
 
 void CollisionSystem::Update()
 {
+    mCurrentCollisions.clear();
+
     if(mEntities.size() <= 1)
         return;
     // Not ideal implementation since this collision system does use a O(N^2) solution.
@@ -22,17 +25,6 @@ void CollisionSystem::Update()
         float right1 = transform1.PosX + (collider1.sizeX / 2);
         float bottom1 = transform1.PosY + (collider1.sizeY / 2);
         float top1 = transform1.PosY - (collider1.sizeY / 2);
-
-        // if(it1 == mEntities.begin())
-        // {
-        //     SDL_Log("First Entity :: POSX: %f, POSY: %f", transform1.PosX, transform1.PosY);
-        //     SDL_Log("  Bounds :: L:%f R:%f B:%f T:%f", left1, right1, bottom1, top1);
-        // }
-        // if(it1 == std::next(mEntities.begin()))
-        // {
-        //     SDL_Log("Second Entity :: POSX: %f, POSY: %f", transform1.PosX, transform1.PosY);
-        //     SDL_Log("  Bounds :: L:%f R:%f B:%f T:%f", left1, right1, bottom1, top1);
-        // }
 
         for(; it2 != mEntities.end(); ++it2)
         {
@@ -57,7 +49,8 @@ void CollisionSystem::Update()
                 top1 < bottom2 &&
                 bottom1 > top2)
             {
-                SDL_Log("THERES A COLLISION");
+                // collision detected between two entities.
+                mCurrentCollisions.push_back(CollisionPair{entity1, entity2});
             }
         }
     }
