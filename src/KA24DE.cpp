@@ -109,7 +109,7 @@ KA24DE::KA24DE()
     gDictator.AddComponent(entity2,
         SpriteRenderer {
             nullptr,
-            "cat0.bmp",
+            "green-ball.bmp",
             50,
             50,
             false,
@@ -122,7 +122,7 @@ KA24DE::KA24DE()
 
     // SPAWN ENTITY THREE TEST
     auto entity3 = gDictator.CreateEntity();
-    gDictator.AddComponent(entity3,  // <= for some reason this bricks the game </
+    gDictator.AddComponent(entity3,
         Transform {
             630.0f,
             460.0f,
@@ -134,7 +134,7 @@ KA24DE::KA24DE()
     gDictator.AddComponent(entity3,
         SpriteRenderer {
             nullptr,
-            "cat1.bmp",
+            "green-ball.bmp",
             50,
             50,
             false,
@@ -221,7 +221,7 @@ void KA24DE::update()
         // update loop
 
         // rendering
-        SDL_SetRenderDrawColor(mRenderer, 230, 115, 0, 255);    // background
+        SDL_SetRenderDrawColor(mRenderer, 81, 79, 132, 255);    // background
         SDL_RenderClear(mRenderer);                             // clear screen
         spriteRenderingSystem->Render(mRenderer);               // render ghetto test implemntation
         SDL_RenderPresent(mRenderer);                           // place data from mRenderer on-screen

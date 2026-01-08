@@ -11,7 +11,6 @@
 #include "entitymanager.hpp"
 #include "componentmanager.hpp"
 #include "entitytype.hpp"
-#include <cstdint>
 //---------------------------------------------------------------------------------
 class Dictator
 {

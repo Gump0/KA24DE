@@ -22,7 +22,7 @@ class CollisionSystem : public System
 
 public:
     void Update();
-    bool AreColliding(Entity entity)
+    bool EntityIsColliding(Entity entity)
     {
         for(auto colPair : mCurrentCollisions)
         {
