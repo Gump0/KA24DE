@@ -13,6 +13,7 @@ class System
 {
 public:
     std::set<Entity> mEntities;
+    ~System() = default;
 };
 
 #endif

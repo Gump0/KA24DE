@@ -1,8 +1,11 @@
 #include "collisionsystem.hpp"
 #include "../../KA24DE.hpp"
+#include <SDL3/SDL_log.h>
 
 void CollisionSystem::Update()
 {
+    mCurrentCollisions.clear();
+
     if(mEntities.size() <= 1)
         return;
     // Not ideal implementation since this collision system does use a O(N^2) solution.
@@ -15,13 +18,13 @@ void CollisionSystem::Update()
         auto collider1 = gDictator.GetComponent<Collider2D>(entity1);
 
         auto it2 = it1;
-        it1++;
+        ++it2;
 
         // calculate aabb bounds for entity1
         float left1 = transform1.PosX - (collider1.sizeX / 2);
         float right1 = transform1.PosX + (collider1.sizeX / 2);
-        float bottom1 = transform1.PosY - (collider1.sizeY / 2);
-        float top1 = transform1.PosY + (collider1.sizeY / 2);
+        float bottom1 = transform1.PosY + (collider1.sizeY / 2);
+        float top1 = transform1.PosY - (collider1.sizeY / 2);
 
         for(; it2 != mEntities.end(); ++it2)
         {
@@ -37,20 +40,18 @@ void CollisionSystem::Update()
             // aabb bounds again
             float left2 = transform2.PosX - (collider2.sizeX / 2.0f);
             float right2 = transform2.PosX + (collider2.sizeX / 2.0f);
-            float top2 = transform2.PosY - (collider2.sizeY / 2.0f);
             float bottom2 = transform2.PosY + (collider2.sizeY / 2.0f);
+            float top2 = transform2.PosY - (collider2.sizeY / 2.0f);
 
             // collision check
-            if(right1 > left2 && left1 < right2 &&
-            bottom1 > top2 && top1 < bottom2)
+            if(left1 < right2 &&
+                right1 > left2 &&
+                top1 < bottom2 &&
+                bottom1 > top2)
             {
-                SDL_Log("THERES A COLLISION");
+                // collision detected between two entities.
+                mCurrentCollisions.push_back(CollisionPair{entity1, entity2});
             }
         }
     }
 }
-
-// bool CollisionSystem::AreColliding(Entity one, Entity two)
-// {
-
-// }
