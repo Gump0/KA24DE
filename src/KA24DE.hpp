@@ -20,7 +20,7 @@
 // input manager
 #include "input-manager/input.hpp"
 
-// ecs
+// ecs dictator class
 #include "ecs/dictator.hpp"
 
 //---------------------------------------------------------------------------------

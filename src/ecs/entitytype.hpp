@@ -11,7 +11,7 @@
 
 //Entity relate data/limitations
 using Entity = std::uint32_t;                   // stores entity id through entity type
-const Entity MAX_ENTITIES = 5000;              // entity cap in-game
+const Entity MAX_ENTITIES = 5000;               // entity cap in-game
 
 using ComponentType = std::uint8_t;             // component type represented as a 8bit int
 const ComponentType MAX_COMPONENTS = 32;        // component cap on each entity

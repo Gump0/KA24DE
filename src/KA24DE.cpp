@@ -2,23 +2,29 @@
 // class file that will manage the construction of global variables, system classes and destruction.
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
+#include <memory> // redundant after fix
+//
+// ecs components
 #include "ecs/components/collider2d.hpp"
 #include "ecs/components/physicsbody.hpp"
 #include "ecs/components/playerbody.hpp"
 #include "ecs/components/spriterenderer.hpp"
 #include "ecs/components/transform.hpp"
+
+// ecs built-in systems
 #include "ecs/systems/collisionsystem.hpp"
 #include "ecs/systems/spriterenderingsystem.hpp"
-#include "ecs/systems/playermove.hpp"
-// system stuff ^^
-#include <memory> // redundant after fix
+#include "ecs/systems/scriptinglayer.hpp"
+
+// ecs user-made "script" systems
+#include "user-scripts/playercontroller.hpp"
 
 Dictator gDictator;
 
 // TEMPERARY (WILL HAVE A MORE OFFICIAL WAY OF DOING THIS L8R)
 std::shared_ptr<SpriteRenderingSystem> spriteRenderingSystem;
 std::shared_ptr<CollisionSystem> collisionSystem;
-std::shared_ptr<PlayerMove> playerMove;
+std::shared_ptr<ScriptingLayer> scriptingLayer;
 
 KA24DE::KA24DE()
 {
@@ -50,22 +56,16 @@ KA24DE::KA24DE()
         gDictator.SetSystemSignature<CollisionSystem>(sig);
     }
 
+    // user scripting layer system
+    scriptingLayer = gDictator.RegisterSystem<ScriptingLayer>();
+    scriptingLayer->Init(&gDictator);
+
     // physics system
     // tbd..
 
-    // player move system
-    playerMove = gDictator.RegisterSystem<PlayerMove>();
-    {
-        Signature sig;
-        sig.set(gDictator.GetComponentType<Transform>());
-        sig.set(gDictator.GetComponentType<Playerbody>());
-        gDictator.SetSystemSignature<PlayerMove>(sig);
-    }
-
     // SPAWN ENTITY 1 TEST
     auto entity1 = gDictator.CreateEntity();
-    gDictator.AddComponent(entity1,
-        SpriteRenderer {
+    gDictator.AddComponent(entity1, SpriteRenderer {
             nullptr,
             "cat0.bmp",
             50,
@@ -73,8 +73,7 @@ KA24DE::KA24DE()
             false,
         }
     );
-    gDictator.AddComponent(entity1,
-        Transform {
+    gDictator.AddComponent(entity1, Transform {
             640.0f,
             350.0f,
             0.0f,
@@ -83,22 +82,22 @@ KA24DE::KA24DE()
             1.0f,
         }
     );
-    gDictator.AddComponent(entity1,
-        Collider2D {
+    gDictator.AddComponent(entity1, Collider2D {
             50,
             50,
         }
     );
-    gDictator.AddComponent(entity1,
-        Playerbody {
+    gDictator.AddComponent(entity1, Playerbody {
             500.0f,
         }
     );
 
+    // player move system (work with scriping layer)
+    scriptingLayer->AddScript<PlayerController>(entity1);
+
     // SPAWN ENTITY TWO TEST
     auto entity2 = gDictator.CreateEntity();
-    gDictator.AddComponent(entity2,
-        Transform {
+    gDictator.AddComponent(entity2, Transform {
             530.0f,
             350.0f,
             0.0f,
@@ -106,24 +105,21 @@ KA24DE::KA24DE()
             1.0f,
             1.0f,
         });
-    gDictator.AddComponent(entity2,
-        SpriteRenderer {
+    gDictator.AddComponent(entity2, SpriteRenderer {
             nullptr,
             "green-ball.bmp",
             50,
             50,
             false,
         });
-        gDictator.AddComponent(entity2,
-        Collider2D {
+        gDictator.AddComponent(entity2, Collider2D {
             50,
             50
         });
 
     // SPAWN ENTITY THREE TEST
     auto entity3 = gDictator.CreateEntity();
-    gDictator.AddComponent(entity3,
-        Transform {
+    gDictator.AddComponent(entity3, Transform {
             630.0f,
             460.0f,
             0.0f,
@@ -131,16 +127,14 @@ KA24DE::KA24DE()
             1.0f,
             1.0f,
         });
-    gDictator.AddComponent(entity3,
-        SpriteRenderer {
+    gDictator.AddComponent(entity3, SpriteRenderer {
             nullptr,
             "green-ball.bmp",
             50,
             50,
             false,
         });
-        gDictator.AddComponent(entity3,
-        Collider2D {
+        gDictator.AddComponent(entity3, Collider2D {
             50,
             50
         });
@@ -235,8 +229,8 @@ void KA24DE::update()
         // collision
         collisionSystem->Update();
 
-        // player move
-        playerMove->Update(deltaTime);
+        // scripting layer
+        scriptingLayer->Update(deltaTime);
 
         // test area :P
         if(Input::GetMouseButtonDown(MouseCode::LEFTMOUSE))
