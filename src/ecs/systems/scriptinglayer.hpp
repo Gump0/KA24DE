@@ -5,6 +5,7 @@
 #ifndef SCRIPTING_LAYER_H
 #define SCRIPTING_LAYER_H
 
+#include "../components/script.hpp"
 #include "../system.hpp"
 #include <memory>
 #include <map>
@@ -31,7 +32,7 @@ public:
                     if(!script->hasStarted)
                     {
                         script->Start(*mDictator, entity);
-                        script->hasStarted {true};
+                        script->hasStarted = true;
                     }
                 }
             }
@@ -50,8 +51,8 @@ public:
                 {
                     if(!script->hasStarted)
                     {
-                        script->Start();
-                        script->hasStarted {true};
+                        script->Start(*mDictator, entity);
+                        script->hasStarted = true;
                     }
                     script->Update(*mDictator, entity, deltaTime);
                 }

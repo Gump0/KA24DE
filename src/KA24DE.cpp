@@ -9,6 +9,7 @@
 #include "ecs/components/transform.hpp"
 #include "ecs/systems/collisionsystem.hpp"
 #include "ecs/systems/spriterenderingsystem.hpp"
+#include "ecs/systems/scriptinglayer.hpp"
 #include "ecs/systems/playermove.hpp"
 // system stuff ^^
 #include <memory> // redundant after fix
@@ -18,6 +19,7 @@ Dictator gDictator;
 // TEMPERARY (WILL HAVE A MORE OFFICIAL WAY OF DOING THIS L8R)
 std::shared_ptr<SpriteRenderingSystem> spriteRenderingSystem;
 std::shared_ptr<CollisionSystem> collisionSystem;
+std::shared_ptr<ScriptingLayer> scriptingLayer;
 std::shared_ptr<PlayerMove> playerMove;
 
 KA24DE::KA24DE()
@@ -49,6 +51,10 @@ KA24DE::KA24DE()
         sig.set(gDictator.GetComponentType<Collider2D>());
         gDictator.SetSystemSignature<CollisionSystem>(sig);
     }
+
+    // user scripting layer system
+    // scriptingLayer = gDictator.RegisterSystem<ScriptingLayer>();
+    // scriptingLayer->Init(&gDictator);
 
     // physics system
     // tbd..
