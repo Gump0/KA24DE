@@ -1,9 +1,6 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-// class file that will manage the construction of global variables, system classes and destruction.
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "KA24DE.hpp"
-#include <memory> // redundant after fix
-//
+#include <memory>
+
 // ecs components
 #include "ecs/components/collider2d.hpp"
 #include "ecs/components/physicsbody.hpp"
@@ -21,7 +18,6 @@
 
 Dictator gDictator;
 
-// TEMPERARY (WILL HAVE A MORE OFFICIAL WAY OF DOING THIS L8R)
 std::shared_ptr<SpriteRenderingSystem> spriteRenderingSystem;
 std::shared_ptr<CollisionSystem> collisionSystem;
 std::shared_ptr<ScriptingLayer> scriptingLayer;

@@ -1,8 +1,8 @@
 todo list:
 audio
 2d physics
-easy to use, abstracted user scripting layer
-handle static images on-screen (UI elements)
+handle static images on-screen (UI elements) // maybe?
+3D RENDERING!!! // uhhh
 
 done:
 open window and render image on screen
@@ -11,3 +11,4 @@ proper game-loop (with deltatime)
 entity-component system
 proper rendering system (engine handles entitys created and renders all applicable ones)
 collision handling
+easy to use, abstracted user scripting layer
