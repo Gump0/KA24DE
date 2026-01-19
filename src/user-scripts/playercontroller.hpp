@@ -5,16 +5,16 @@
 #ifndef PLAYER_CONTROLLER_H
 #define PLAYER_CONTROLLER_H
 
-#include "ecs/systems/scriptinglayer.hpp"
-#include "ecs/components/playerbody.hpp"
-#include "ecs/components/transform.hpp"
+#include "../KA24DE.hpp"
+#include "../ecs/components/playerbody.hpp"
+#include "../ecs/components/transform.hpp"
+//---------------------------------------------------------------------------------
+
 class PlayerController : public Script
 {
 public:
     void Start(Dictator& dictator, Entity entity) override
     {
-        SDL_Log("Player script started!");
-
         auto& transform = dictator.GetComponent<Transform>(entity);
         transform.PosX = 100;
         transform.PosY = 100;

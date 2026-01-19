@@ -17,7 +17,11 @@
 class IComponentContainer
 {
 public:
+    IComponentContainer() = default;
     ~IComponentContainer() = default;
+    IComponentContainer(const IComponentContainer&) = delete;
+    IComponentContainer operator=(const IComponentContainer&) = delete;
+
     virtual void EntityDeleted(Entity entity) = 0;
 };
 

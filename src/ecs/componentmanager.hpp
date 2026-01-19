@@ -16,7 +16,8 @@ class ComponentManager
 public:
     ComponentManager() = default;
     ~ComponentManager() = default;
-    ComponentManager(const ComponentManager &obj);
+    ComponentManager(const ComponentManager &obj) = delete;
+    ComponentManager operator=(const ComponentManager&) = delete;
 
     template<typename T>
 	void RegisterComponent()

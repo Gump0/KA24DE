@@ -20,6 +20,7 @@
 
 // time library
 #include <chrono>
+#include <memory>
 
 // input manager
 #include "input-manager/input.hpp"
@@ -34,6 +35,10 @@ extern Dictator gDictator;
 
 class KA24DE
 {
+    SpriteRenderingSystem* spriteRenderingSystem {nullptr};
+    CollisionSystem* collisionSystem {nullptr};
+    ScriptingLayer* scriptingLayer {nullptr};
+
 public:
     KA24DE();           // class constructor
     ~KA24DE();          // destructor that handles memory cleanup of program

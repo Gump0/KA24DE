@@ -15,16 +15,19 @@
 
 // ecs user-made "script" systems
 #include "user-scripts/playercontroller.hpp"
+#include "user-scripts/switchspritetest.hpp"
 
 Dictator gDictator;
-
-std::shared_ptr<SpriteRenderingSystem> spriteRenderingSystem;
-std::shared_ptr<CollisionSystem> collisionSystem;
-std::shared_ptr<ScriptingLayer> scriptingLayer;
 
 KA24DE::KA24DE()
 {
     gDictator.Init();
+
+    //register core systems
+    gDictator.Register(std::make_unique<SpriteRenderingSystem>());
+    gDictator.Register(std::make_unique<CollisionSystem>());
+    gDictator.Register(std::make_unique<ScriptingLayer>());
+
     // register component types we will use for our "game"
     gDictator.RegisterComponent<Transform>();
     gDictator.RegisterComponent<SpriteRenderer>();
@@ -34,7 +37,7 @@ KA24DE::KA24DE()
 
     // register system under system manager
     // sprite rendering system
-    spriteRenderingSystem = gDictator.RegisterSystem<SpriteRenderingSystem>();
+    spriteRenderingSystem = &gDictator.RegisterSystem<SpriteRenderingSystem>();
     {
         Signature sig;
         sig.set(gDictator.GetComponentType<Transform>());
@@ -44,7 +47,8 @@ KA24DE::KA24DE()
     spriteRenderingSystem->Init();
 
     // collision system
-    collisionSystem = gDictator.RegisterSystem<CollisionSystem>();
+    // collisionSystem = &gDictator.RegisterSystem<CollisionSystem>();
+    collisionSystem = &gDictator.RegisterSystem<CollisionSystem>();
     {
         Signature sig;
         sig.set(gDictator.GetComponentType<Transform>());
@@ -53,7 +57,7 @@ KA24DE::KA24DE()
     }
 
     // user scripting layer system
-    scriptingLayer = gDictator.RegisterSystem<ScriptingLayer>();
+    scriptingLayer = &gDictator.RegisterSystem<ScriptingLayer>();
     scriptingLayer->Init(&gDictator);
 
     // physics system
@@ -113,6 +117,8 @@ KA24DE::KA24DE()
             50
         });
 
+    scriptingLayer->AddScript<SwitchSpriteTest>(entity2);
+
     // SPAWN ENTITY THREE TEST
     auto entity3 = gDictator.CreateEntity();
     gDictator.AddComponent(entity3, Transform {
@@ -134,6 +140,8 @@ KA24DE::KA24DE()
             50,
             50
         });
+
+    scriptingLayer->AddScript<SwitchSpriteTest>(entity3);
 }
 
 KA24DE::~KA24DE()

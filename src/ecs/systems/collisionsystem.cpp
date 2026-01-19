@@ -1,6 +1,5 @@
 #include "collisionsystem.hpp"
 #include "../../KA24DE.hpp"
-#include <SDL3/SDL_log.h>
 
 void CollisionSystem::Update()
 {

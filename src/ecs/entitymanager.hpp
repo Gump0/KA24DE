@@ -24,7 +24,8 @@ public:
     }
 
     ~EntityManger() = default;
-    EntityManger(const EntityManger &obj) = default;
+    EntityManger(const EntityManger &obj) = delete;
+    EntityManger operator=(const EntityManger&) = delete;
 
     Entity CreateEntity()
     {

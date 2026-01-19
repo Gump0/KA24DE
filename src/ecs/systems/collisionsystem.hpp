@@ -22,12 +22,25 @@ class CollisionSystem : public System
 
 public:
     void Update();
-    bool EntityIsColliding(Entity entity)
+
+    bool EntityIsColliding(Entity entity) const
     {
-        for(auto colPair : mCurrentCollisions)
+        for(const auto& colPair : mCurrentCollisions)
         {
             if(colPair.entity1 == entity || colPair.entity2 == entity)
                 return true;
+        }
+        return false;
+    };
+
+    bool IsTouchingThis(Entity a, Entity b) const
+    {
+        for(const auto& pair : mCurrentCollisions)
+        {
+            if(pair.entity1 == a && pair.entity2 == b || pair.entity1 == b && pair.entity2 == a)
+                return true;
+            else
+                return false;
         }
         return false;
     };

@@ -14,17 +14,22 @@
 class SystemManager
 {
 public:
+    SystemManager() = default;
+    SystemManager(const SystemManager&) = delete;
+    SystemManager& operator=(const SystemManager&) = delete;
+
     template<typename T>
-    std::shared_ptr<T> RegisterSystem()
+    T& RegisterSystem()
     {
         const char* typeName = typeid(T).name();
 
         assert(mSystems.find(typeName) == mSystems.end() && "ERROR : the same system cannot be registered more than once");
 
-        // create a pointer to the system and return it so it may be used externally
-        auto system = std::make_shared<T>();
-        mSystems.insert({typeName, system});
-        return system;
+        auto system = std::make_unique<T>();
+        T& ref = *system;
+
+        mSystems.emplace(typeName, std::move(system));
+        return ref;
     }
 
     template <typename T>
@@ -77,7 +82,7 @@ private:
 	std::unordered_map<const char*, Signature> mSignatures{};
 
 	// hashmap from system type string pointer => system pointer
-	std::unordered_map<const char*, std::shared_ptr<System>> mSystems{};
+	std::unordered_map<const char*, std::unique_ptr<System>> mSystems{};
 };
 
 #endif

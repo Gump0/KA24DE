@@ -7,14 +7,44 @@
 #ifndef DICTATOR_H
 #define DICTATOR_H
 
+#include "components/script.hpp"
 #include "systemmanager.hpp"
 #include "entitymanager.hpp"
 #include "componentmanager.hpp"
 #include "entitytype.hpp"
+#include "systems/collisionsystem.hpp"
+#include "systems/scriptinglayer.hpp"
+#include "systems/spriterenderingsystem.hpp"
+#include <cassert>
+#include <memory>
+#include <utility>
 //---------------------------------------------------------------------------------
 class Dictator
 {
 public:
+    Dictator() = default;
+    Dictator(const Dictator&) = delete;
+    Dictator& operator=(const Dictator&) = delete;
+
+    // core system
+    void Register(std::unique_ptr<SpriteRenderingSystem> s)
+    {
+        spriteRenderingSystem = std::move(s);
+    }
+
+    void Register(std::unique_ptr<CollisionSystem> c)
+    {
+        collisionSystem = std::move(c);
+    }
+
+    void Register(std::unique_ptr<ScriptingLayer> s)
+    {
+        scriptingLayer = std::move(s);
+    }
+
+    template<typename T>
+    T& GetCore();
+
     void Init()
     {
         mComponentManager = std::make_unique<ComponentManager>();
@@ -85,7 +115,7 @@ public:
 
 	// system manager
 	template<typename T>
-	std::shared_ptr<T> RegisterSystem()
+	T& RegisterSystem()
 	{
 		return mSystemManager->RegisterSystem<T>();
 	}
@@ -100,6 +130,31 @@ private:
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<SystemManager> mSystemManager;
     std::unique_ptr<EntityManger> mEntityManager;
+
+    std::unique_ptr<SpriteRenderingSystem> spriteRenderingSystem;
+    std::unique_ptr<CollisionSystem> collisionSystem;
+    std::unique_ptr<ScriptingLayer> scriptingLayer;
 };
+
+template<>
+inline CollisionSystem& Dictator::GetCore<CollisionSystem>()
+{
+    assert(collisionSystem);
+    return *collisionSystem;
+}
+
+template<>
+inline SpriteRenderingSystem& Dictator::GetCore<SpriteRenderingSystem>()
+{
+    assert(spriteRenderingSystem);
+    return *spriteRenderingSystem;
+}
+
+template<>
+inline ScriptingLayer& Dictator::GetCore<ScriptingLayer>()
+{
+    assert(scriptingLayer);
+    return *scriptingLayer;
+}
 
 #endif
