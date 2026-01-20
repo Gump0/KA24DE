@@ -2,6 +2,7 @@
 #include "../ecs/components/transform.hpp"
 #include "../ecs/components/collider2d.hpp"
 #include "../ecs/components/spriterenderer.hpp"
+#include <iostream>
 
 void SwitchSpriteTest::Update(Dictator& dictator, Entity entity, double deltaTime)
 {
@@ -10,7 +11,8 @@ void SwitchSpriteTest::Update(Dictator& dictator, Entity entity, double deltaTim
     auto& sr = dictator.GetComponent<SpriteRenderer>(entity);
 
     auto& collisionsystem = dictator.GetCore<CollisionSystem>();
-    SDL_Log("User Script's Collision System : %p", collisionsystem);
+    SDL_Log("User Script's Dictator System : %p", (void*)&dictator);
+    std::cout << std::to_string(entity) << '\n';
 
     if(collisionsystem.EntityIsColliding(entity))
     {
