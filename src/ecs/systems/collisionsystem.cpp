@@ -52,5 +52,6 @@ void CollisionSystem::Update()
                 mCurrentCollisions.push_back(CollisionPair{entity1, entity2});
             }
         }
+        SDL_Log("User Script's Collision System : %p", (void*)this);
     }
 }

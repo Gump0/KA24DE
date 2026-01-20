@@ -21,13 +21,6 @@ Dictator gDictator;
 
 KA24DE::KA24DE()
 {
-    gDictator.Init();
-
-    //register core systems
-    gDictator.Register(std::make_unique<SpriteRenderingSystem>());
-    gDictator.Register(std::make_unique<CollisionSystem>());
-    gDictator.Register(std::make_unique<ScriptingLayer>());
-
     // register component types we will use for our "game"
     gDictator.RegisterComponent<Transform>();
     gDictator.RegisterComponent<SpriteRenderer>();

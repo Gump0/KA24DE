@@ -10,6 +10,7 @@ void SwitchSpriteTest::Update(Dictator& dictator, Entity entity, double deltaTim
     auto& sr = dictator.GetComponent<SpriteRenderer>(entity);
 
     auto& collisionsystem = dictator.GetCore<CollisionSystem>();
+    SDL_Log("User Script's Collision System : %p", collisionsystem);
 
     if(collisionsystem.EntityIsColliding(entity))
     {
