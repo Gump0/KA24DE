@@ -47,7 +47,6 @@ public:
     double deltaTime;
 
     bool init();        // called on program start
-    void start();       // "start code" for user to initialize gameplay code after engine inits
     bool render();      // handles SDL render calls
     void update();      // handles game-loop
     void shutDown();    // handles memory cleanup of program
