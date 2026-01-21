@@ -25,9 +25,6 @@ public:
     Dictator(const Dictator&) = delete;
     Dictator& operator=(const Dictator&) = delete;
 
-    template<typename T>
-    T& GetCore();
-
     // entity manager
     Entity CreateEntity()
     {
@@ -58,76 +55,67 @@ public:
     {
         mComponentManager.AddComponent<T>(entity, component);
 
-		auto signature = mEntityManager.GetSignature(entity);
-		signature.set(mComponentManager.GetComponentType<T>(), true);
-		mEntityManager.SetSignature(entity, signature);
+        auto signature = mEntityManager.GetSignature(entity);
+        signature.set(mComponentManager.GetComponentType<T>(), true);
+        mEntityManager.SetSignature(entity, signature);
 
-		mSystemManager.EntitySignatureChanged(entity, signature);
+        mSystemManager.EntitySignatureChanged(entity, signature);
     }
 
-   	template<typename T>
-	void RemoveComponent(Entity entity)
-	{
-		mComponentManager.RemoveComponent<T>(entity);
+    template<typename T>
+    void RemoveComponent(Entity entity)
+    {
+        mComponentManager.RemoveComponent<T>(entity);
 
-		auto signature = mEntityManager.GetSignature(entity);
-		signature.set(mComponentManager.GetComponentType<T>(), false);
-		mEntityManager.SetSignature(entity, signature);
+        auto signature = mEntityManager.GetSignature(entity);
+        signature.set(mComponentManager.GetComponentType<T>(), false);
+        mEntityManager.SetSignature(entity, signature);
 
-		mSystemManager.EntitySignatureChanged(entity, signature);
-	}
+        mSystemManager.EntitySignatureChanged(entity, signature);
+    }
 
-	template<typename T>
-	T& GetComponent(Entity entity)
-	{
-		return mComponentManager.GetComponent<T>(entity);
-	}
+    template<typename T>
+    T& GetComponent(Entity entity)
+    {
+        return mComponentManager.GetComponent<T>(entity);
+    }
 
-	template<typename T>
-	ComponentType GetComponentType()
-	{
-		return mComponentManager.GetComponentType<T>();
-	}
+    template<typename T>
+    ComponentType GetComponentType()
+    {
+        return mComponentManager.GetComponentType<T>();
+    }
 
-	// system manager
-	template<typename T>
-	T& RegisterSystem()
-	{
-		return mSystemManager.RegisterSystem<T>();
-	}
+    // system manager
+    template<typename T>
+    T& GetSystem()
+    {
+        return mSystemManager.GetSystem<T>();
+    }
 
-	template<typename T>
-	void SetSystemSignature(Signature signature)
-	{
-		mSystemManager.SetSignature<T>(signature);
-	}
+    template<typename T>
+    T& RegisterSystem()
+    {
+        return mSystemManager.RegisterSystem<T>();
+    }
+
+    template<typename T>
+    void SetSystemSignature(Signature signature)
+    {
+        mSystemManager.SetSignature<T>(signature);
+    }
 
 private:
     ComponentManager mComponentManager;
     SystemManager mSystemManager;
     EntityManger mEntityManager;
 
-    SpriteRenderingSystem mSpriteRenderingSystem;
-    CollisionSystem mCollisionSystem;
-    ScriptingLayer mScriptingLayer;
+    // REMOVED: Don't store systems as members - they're in SystemManager!
+    // SpriteRenderingSystem mSpriteRenderingSystem;
+    // CollisionSystem mCollisionSystem;
+    // ScriptingLayer mScriptingLayer;
 };
 
-template<>
-inline CollisionSystem& Dictator::GetCore<CollisionSystem>()
-{
-    return mCollisionSystem;
-}
-
-template<>
-inline SpriteRenderingSystem& Dictator::GetCore<SpriteRenderingSystem>()
-{
-    return mSpriteRenderingSystem;
-}
-
-template<>
-inline ScriptingLayer& Dictator::GetCore<ScriptingLayer>()
-{
-    return mScriptingLayer;
-}
+// REMOVED: GetCore specializations - use GetSystem() instead
 
 #endif

@@ -87,7 +87,6 @@ KA24DE::KA24DE()
 
     // player move system (work with scriping layer)
     scriptingLayer->AddScript<PlayerController>(entity1);
-    scriptingLayer->AddScript<SwitchSpriteTest>(entity1);
 
     // SPAWN ENTITY TWO TEST
     auto entity2 = gDictator.CreateEntity();

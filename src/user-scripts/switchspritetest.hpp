@@ -16,7 +16,7 @@ public:
 
     void OnDestroy(Dictator& dictator, Entity entity) override
     {
-        SDL_Log("Player destroyed!");
+        SDL_Log("Sprite changer destroyed!");
     }
 };
 
