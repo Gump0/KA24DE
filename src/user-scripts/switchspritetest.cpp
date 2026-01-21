@@ -1,18 +1,29 @@
 #include "switchspritetest.hpp"
-#include "../ecs/components/transform.hpp"
-#include "../ecs/components/collider2d.hpp"
-#include "../ecs/components/spriterenderer.hpp"
+#include <iostream>
 
 void SwitchSpriteTest::Update(Dictator& dictator, Entity entity, double deltaTime)
 {
-    auto& transform = dictator.GetComponent<Transform>(entity);
-    auto& collider = dictator.GetComponent<Collider2D>(entity);
-    auto& sr = dictator.GetComponent<SpriteRenderer>(entity);
+    auto& collisionSystem = dictator.GetSystem<CollisionSystem>();
 
-    auto& collisionsystem = dictator.GetCore<CollisionSystem>();
-
-    if(collisionsystem.EntityIsColliding(entity))
+    if(collisionSystem.EntityIsColliding(entity))
     {
-        SDL_Log("WE MADE IT");
+        auto& sr = dictator.GetComponent<SpriteRenderer>(entity);
+        std::string desiredSprite = "red-ball.bmp";
+        if(sr.imgLocation != desiredSprite)
+        {
+            sr.imgLocation = desiredSprite;
+            sr.isLoaded = false;    // tell sprite rendering system to re-load sprite
+        }
+    }
+    else
+    {
+        auto& sr = dictator.GetComponent<SpriteRenderer>(entity);
+
+        std::string desiredSprite = "green-ball.bmp";
+        if(sr.imgLocation != desiredSprite)
+        {
+            sr.imgLocation = desiredSprite;
+            sr.isLoaded = false;
+        }
     }
 }

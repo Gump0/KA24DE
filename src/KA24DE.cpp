@@ -21,13 +21,6 @@ Dictator gDictator;
 
 KA24DE::KA24DE()
 {
-    gDictator.Init();
-
-    //register core systems
-    gDictator.Register(std::make_unique<SpriteRenderingSystem>());
-    gDictator.Register(std::make_unique<CollisionSystem>());
-    gDictator.Register(std::make_unique<ScriptingLayer>());
-
     // register component types we will use for our "game"
     gDictator.RegisterComponent<Transform>();
     gDictator.RegisterComponent<SpriteRenderer>();
@@ -177,16 +170,8 @@ bool KA24DE::init()
         SDL_Log( "Window could not be created! SDL error: %s\n", SDL_GetError() );
         success = false;
     }
-    // call start after initialization
-    start();
 
     return success;
-}
-
-void KA24DE::start()
-{
-    // "start code" to garuntee running after engine initalizes
-    // probably going to be used of user scripts
 }
 
 bool KA24DE::render()

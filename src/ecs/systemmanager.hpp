@@ -19,6 +19,17 @@ public:
     SystemManager& operator=(const SystemManager&) = delete;
 
     template<typename T>
+    T& GetSystem()
+    {
+        const char* typeName = typeid(T).name();
+
+        auto it = mSystems.find(typeName);
+        assert(it != mSystems.end() && "System not registered!");
+
+        return *static_cast<T*>(it->second.get());
+    }
+
+    template<typename T>
     T& RegisterSystem()
     {
         const char* typeName = typeid(T).name();

@@ -11,6 +11,8 @@
 #include <map>
 #include <vector>
 //---------------------------------------------------------------------------------
+class Dictator;
+
 class ScriptingLayer : public System
 {
 public:

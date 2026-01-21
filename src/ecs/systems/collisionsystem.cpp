@@ -14,7 +14,7 @@ void CollisionSystem::Update()
         auto const& entity1 = *it1;
 
         auto& transform1 = gDictator.GetComponent<Transform>(entity1);
-        auto collider1 = gDictator.GetComponent<Collider2D>(entity1);
+        auto& collider1 = gDictator.GetComponent<Collider2D>(entity1);
 
         auto it2 = it1;
         ++it2;
