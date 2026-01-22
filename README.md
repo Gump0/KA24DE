@@ -1,4 +1,7 @@
-![Gorgous KA24DE project logo I made :)](/documentation/KA24DE-LOGO.png)
+# __KA24DE__
+<p align="center">
+  <img src="/documentation/KA24DE-logo.png" width="550">
+</p>
 
 <br>
 
@@ -9,9 +12,13 @@
 + 2D __AABB__ collision
 + Abstracted user scripting layer
 
-![gif demonstrating user-input](/documentation/user-input.gif)
+<p>
+  <img src="/documentation/user-input.gif" width="400">
+</p>
 
-![gif demonstrating collision system](/documentation/collision.gif)
+<p>
+  <img src="/documentation/collision.gif" width="400">
+</p>
 
 ## __Building // Running the Project__ (Linux + Windows)
 
@@ -52,7 +59,6 @@ cmake --build build
 sudo chmod +x build.sh      # trust me bro
 ./build.sh
 ```
-<br>
 
 #### __Windows__
 ```bash
