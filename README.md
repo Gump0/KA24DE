@@ -24,8 +24,8 @@
 
 #### __Prerequisites__
 
-[!WARNING]
-This project requires the following prerequisites.
+>[!WARNING]
+>This project requires the following prerequisites.
 
 ```bash
 cmake, clang (or c++ compiler of your choice), SDL3.
