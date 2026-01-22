@@ -154,7 +154,7 @@ KA24DE::~KA24DE()
     SDL_Quit();
 }
 
-bool KA24DE::init()
+bool KA24DE::Init()
 {
     bool success {true};
     if(SDL_Init(SDL_INIT_VIDEO) == false)
@@ -174,7 +174,7 @@ bool KA24DE::init()
     return success;
 }
 
-bool KA24DE::render()
+bool KA24DE::Render()
 {
     // render logic ^^
     bool success {true};
@@ -182,7 +182,7 @@ bool KA24DE::render()
     return success;
 }
 
-void KA24DE::update()
+void KA24DE::Update()
 {
     bool quit {false};
     SDL_Event e;
