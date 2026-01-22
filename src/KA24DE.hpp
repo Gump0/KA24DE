@@ -46,10 +46,10 @@ public:
     // time
     double deltaTime;
 
-    bool init();        // called on program start
-    bool render();      // handles SDL render calls
-    void update();      // handles game-loop
-    void shutDown();    // handles memory cleanup of program
+    bool Init();        // called on program start
+    bool Render();      // handles SDL render calls
+    void Update();      // handles game-loop
+    void ShutDown();    // handles memory cleanup of program
 
 private:
 // window

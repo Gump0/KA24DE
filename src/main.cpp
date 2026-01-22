@@ -8,14 +8,14 @@ static KA24DE engine;
 int main(int argc, char* args[])
 {
     int exitCode {0};
-    if(!engine.init())
+    if(!engine.Init())
     {
         SDL_Log("Unable to initialize program \n");
         exitCode = 1;
         return exitCode;
     }
 
-    if(!engine.render())
+    if(!engine.Render())
     {
         SDL_Log("Renderer failed to initalize \n");
         exitCode = 2;
@@ -23,7 +23,7 @@ int main(int argc, char* args[])
     }
     else
     {
-        engine.update();
+        engine.Update();
     }
 
     return exitCode;
